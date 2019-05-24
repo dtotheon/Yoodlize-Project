@@ -9,10 +9,19 @@ module.exports = {
         browser.end()
     },
 
-    'Navigate Categories': browser => {
+    // 'Navigate Categories': browser => {
+    //     pageObjects
+    //     .navCat(navCat)
+    // },
+
+    'Rent Item and Deny Request': browser => {
         pageObjects
-        .navCat(navCat)
-    },
+        .logIn('testing.yoodlize1@gmail.com')
+        .search('Competitive Game')
+        .request('11/22/2019','3')
+        .deny()
+        .logout()
+    }
    
     // 'Search is available on all pages': browser => {
     //     pageObjects

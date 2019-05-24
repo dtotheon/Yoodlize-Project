@@ -22,13 +22,60 @@ var yoodlizeCommands = {
             .useCss()
             .waitForElementVisible('.sc-kaNhvL')
             .verify.containsText('.sc-kaNhvL', test.category)
-        this
             .waitForElementVisible('.navbar-brand')
             .click('.navbar-brand')
         })
         this
         return this
     },
+    search: function(value){
+        this
+        .waitForElementVisible('input')
+        .setValue('input', value)
+        .click('.sc-uJMKN.fpBmEu')
+        .waitForElementVisible('.sc-kaNhvL')
+        .verify.containsText('.sc-kaNhvL', value)
+        .click('#card-title')
+        .waitForElementVisible('.sc-jqCOkK.hxTVNb')
+        .verify.containsText('.sc-jqCOkK.hxTVNb', value)
+        return this
+    },
+    request: function(date,days){
+        this
+        .waitForElementVisible('.sc-uJMKN.bhaOto')
+        .setValue('#date', date)
+        .setValue('.sc-epnACN', days)
+        .click('.sc-uJMKN.bhaOto')
+        .waitForElementVisible('.sc-jqCOkK.efFbwr')
+        .verify.containsText('.sc-jqCOkK.efFbwr', 'Charles Bandberry')
+        .click('._2Py7x')
+        .waitForElementVisible('.sc-jqCOkK.dskild')
+        .verify.containsText('.sc-jqCOkK.dskild', 'Request Sent')
+        .logout()
+        return this
+    },
+    logout: function(){
+        this
+        .click('#basic-nav-dropdown')
+        .api.useXpath()
+        .waitForElementVisible('(//span[text()="Logout"])[2]')
+        .click('(//span[text()="Logout"])[2]')
+        .waitForElementVisible('//span[text()="Log in"]')
+        this.api.useCss
+        return this
+    },
+    deny: function(){
+        this
+        .logIn('testing.yoodlize@gmail.com')
+        .click('[href="/inbox"]')
+        .api.useXpath()
+        .waitForElementVisible('//div[contains(@class, "b-coolGrayLightest")]/div[contains(text(), "PENDING")]/../..//div[contains(@class, "pointer")]')
+        .click('//div[contains(@class, "b-coolGrayLightest")]/div[contains(text(), "PENDING")]/../..//div[contains(@class, "pointer")]')
+        this.api.useCss()
+        .waitForElementVisible('.sc-uJMKN.bHUcDQ')
+        .click('.sc-uJMKN.bHUcDQ')
+        return this
+    }
     
 }
 
