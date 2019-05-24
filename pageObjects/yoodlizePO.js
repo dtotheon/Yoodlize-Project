@@ -13,7 +13,23 @@ var yoodlizeCommands = {
         .waitForElementVisible('//span[text()="Inbox"]')
         this.api.useCss()
         return this
-    }
+    },
+    navCat: function(testData){
+        testData.forEach(test => {
+            this
+            .click(test.selector)
+            .pause(500)
+            .useCss()
+            .waitForElementVisible('.sc-kaNhvL')
+            .verify.containsText('.sc-kaNhvL', test.category)
+        this
+            .waitForElementVisible('.navbar-brand')
+            .click('.navbar-brand')
+        })
+        this
+        return this
+    },
+    
 }
 
 module.exports = {
