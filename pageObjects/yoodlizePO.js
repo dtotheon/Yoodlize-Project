@@ -74,6 +74,7 @@ var yoodlizeCommands = {
         this.api.useCss()
         .waitForElementVisible('.sc-uJMKN.bHUcDQ')
         .click('.sc-uJMKN.bHUcDQ')
+        .waitForElementNotPresent('//div[contains(@class, "b-coolGrayLightest")]/div[contains(text(), "PENDING")]/../..//div[contains(@class, "pointer")]')
         return this
     }
     

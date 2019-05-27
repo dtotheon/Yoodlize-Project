@@ -1,5 +1,6 @@
 var pageObjects = {}
 let navCat= require('../pageAssets/navCatAssets')
+let rent= require('../pageAssets/rentAssests')
 module.exports = {
     beforeEach: browser => {
         pageObjects = browser.page.yoodlizePO()
@@ -15,13 +16,15 @@ module.exports = {
     // },
 
     'Rent Item and Deny Request': browser => {
+        rent.forEach(test => {
         pageObjects
         .logIn('testing.yoodlize1@gmail.com')
-        .search('Competitive Game')
+        .search(test.item)
         .request('11/22/2019','3')
         .deny()
         .logout()
-    }
+    })
+}
    
     // 'Search is available on all pages': browser => {
     //     pageObjects
