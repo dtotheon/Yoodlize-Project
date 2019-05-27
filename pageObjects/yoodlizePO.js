@@ -12,18 +12,83 @@ var yoodlizeCommands = {
         .waitForElementVisible('a[href="/inbox"]')
         return this
     },
+    navCat: function(testData){
+        testData.forEach(test => {
+            this
+            .click(test.selector)
+            .pause(500)
+            .useCss()
+            .waitForElementVisible('.sc-kaNhvL')
+            .verify.containsText('.sc-kaNhvL', test.category)
+            .waitForElementVisible('.navbar-brand')
+            .click('.navbar-brand')
+        })
+        this
+        return this
+    },
+    search: function(value){
+        this
+        .waitForElementVisible('input')
+        .setValue('input', value)
+        .click('.sc-uJMKN.fpBmEu')
+        .waitForElementVisible('.sc-jKVCRD')
+        .verify.containsText('.sc-jKVCRD', value)
+        .click('#card-title')
+        .waitForElementVisible('.sc-jqCOkK.hxTVNb')
+        .verify.containsText('.sc-jqCOkK.hxTVNb', value)
+        return this
+    },
+    request: function(date,days){
+        this
+        .waitForElementVisible('.sc-uJMKN.bhaOto')
+        .setValue('#date', date)
+        .setValue('[type=number]', days)
+        .click('.sc-uJMKN.bhaOto')
+        .waitForElementVisible('.sc-jqCOkK.efFbwr')
+        .verify.containsText('.sc-jqCOkK.efFbwr', 'Charles Bandberry')
+        .click('._2Py7x')
+        .waitForElementVisible('.sc-jqCOkK.dskild')
+        .verify.containsText('.sc-jqCOkK.dskild', 'Request Sent')
+        .logout()
+        return this
+    },
+    logout: function(){
+        this
+        .click('#basic-nav-dropdown')
+        .api.useXpath()
+        .waitForElementVisible('(//span[text()="Logout"])[2]')
+        .click('(//span[text()="Logout"])[2]')
+        .waitForElementVisible('//span[text()="Log in"]')
+        this.api.useCss
+        return this
+    },
+    deny: function(){
+        this
+        .logIn('testing.yoodlize@gmail.com')
+        .click('[href="/inbox"]')
+        .api.useXpath()
+        .waitForElementVisible('//div[contains(@class, "b-coolGrayLightest")]/div[contains(text(), "PENDING")]/../..//div[contains(@class, "pointer")]')
+        .click('//div[contains(@class, "b-coolGrayLightest")]/div[contains(text(), "PENDING")]/../..//div[contains(@class, "pointer")]')
+        this.api.useCss()
+        .waitForElementVisible('.sc-uJMKN.bHUcDQ')
+        .click('.sc-uJMKN.bHUcDQ')
+        .waitForElementNotPresent('//div[contains(@class, "b-coolGrayLightest")]/div[contains(text(), "PENDING")]/../..//div[contains(@class, "pointer")]')
+        return this
+    },
+    
     imageInput: function (image){
         this
             .waitForElementVisible('button.sc-uJMKN.bhaOto.sc-ifAKCX.kvYMhQ', 5000)
         
         this.setValue("input[type=file]",
-            require('path').resolve(`../images/${image}`))
+            require('path').resolve(`../yoodlizeProj/images/${image}`))
             .pause(2000)
             this.expect.element('button.sc-uJMKN.bhaOto.sc-ifAKCX.kvYMhQ').text.to.equal('Save & Next: Review').before(5000)
             this.click('button.sc-uJMKN.bhaOto.sc-ifAKCX.kvYMhQ')
 
             return this
     }
+
 }
 
 module.exports = {
@@ -155,7 +220,11 @@ module.exports = {
             locateStrategy: 'xpath'
                     },
         navWorks: {
-            selector:'//*[text()="How it works"]',
+            selector: '//*[text()="How it works"]',
+            locateStrategy: 'xpath'
+        },
+        loginBtn: {
+            selector: '//*[text()="Log in"]',
             locateStrategy: 'xpath'
         },
         sSearch: {
@@ -165,6 +234,34 @@ module.exports = {
         fMusic: {
             selector: '(//div[text()="MUSIC"])',
             locateStrategy:'xpath'
+        },
+        itemList: {
+            selector: '//*[text()="List Your Stuff"]',
+            locateStrategy: 'xpath'
+        },
+        nextBtn: {
+            selector: '.bhaOto',
+            locateStrategy: 'css'
+        },
+        categoryReq: {
+            selector: '//select[@form="ListingForm"])[1]',
+            locateStrategy: 'xpath'
+        },
+        categoryOpt: {
+            selector: '//select[@form="ListingForm"])[2]',
+            locateStrategy: 'xpath'
+        },
+        itemTitle: {
+            selector: '.sc-hXRMBi',
+            locateStrategy: 'css'
+        },
+        itemDesc: {
+            selector: '.sc-bAeIUo',
+            locateStrategy: 'css'
+        },
+        itemInput: {
+            selector: '.sc-hXRMBi',
+            locateStrategy: 'css'
         }
 
     },
