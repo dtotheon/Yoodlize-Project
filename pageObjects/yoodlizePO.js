@@ -9,10 +9,20 @@ var yoodlizeCommands = {
         .setValue('[name="email"]', email)
         .setValue('[name="password"]', 'yoodlizetesting')
         .click('[type=submit]')
-        this.api.useXpath()
-        .waitForElementVisible('//span[text()="Inbox"]')
-        this.api.useCss()
+        .waitForElementVisible('a[href="/inbox"]')
         return this
+    },
+    imageInput: function (image){
+        this
+            .waitForElementVisible('button.sc-uJMKN.bhaOto.sc-ifAKCX.kvYMhQ', 5000)
+        
+        this.setValue("input[type=file]",
+            require('path').resolve(`../images/${image}`))
+            .pause(2000)
+            this.expect.element('button.sc-uJMKN.bhaOto.sc-ifAKCX.kvYMhQ').text.to.equal('Save & Next: Review').before(5000)
+            this.click('button.sc-uJMKN.bhaOto.sc-ifAKCX.kvYMhQ')
+
+            return this
     }
 }
 
@@ -93,7 +103,7 @@ module.exports = {
             locateStrategy: 'xpath'
         },
         fParty: {
-            selector: '(//div[text()="PARTY & WEDDING EQUIPMENT"])[2]',
+            selector: '(//div[text()="PARTY & WEDDING"])',
             locateStrategy: 'xpath'
         },
         fVehicles: {
@@ -105,15 +115,15 @@ module.exports = {
             locateStrategy: 'xpath'
         },
         fHome: {
-            selector: '(//div[text()="HOME AND KITCHEN"])',
+            selector: '(//div[text()="HOME & KITCHEN"])[2]',
             locateStrategy: 'xpath'
         },
         fToys: {
-            selector: '(//div[text()="TOYS AND GAMES"])',
+            selector: '(//div[text()="TOYS & GAMES"])[2]',
             locateStrategy: 'xpath'
         },
         fLawn: {
-            selector: '(//div[text()="LAWN AND GARDEN"])',
+            selector: '(//div[text()="LAWN & GARDEN"])[2]',
             locateStrategy: 'xpath'
         },
         fSporting: {
@@ -141,13 +151,21 @@ module.exports = {
             locateStrategy: 'xpath'
         },
         navSearch: {
-            selector: '//*[text()="Search"]',
+            selector: '(//*[text()="Search"])[1]',
             locateStrategy: 'xpath'
                     },
         navWorks: {
             selector:'//*[text()="How it works"]',
             locateStrategy: 'xpath'
         },
+        sSearch: {
+            selector:'//i[@class="fal fa-search hidden-md hidden-lg hidden-xs"]',
+            locateStrategy: 'xpath'
+        },
+        fMusic: {
+            selector: '(//div[text()="MUSIC"])',
+            locateStrategy:'xpath'
+        }
 
     },
 }
