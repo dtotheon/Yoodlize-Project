@@ -76,8 +76,21 @@ var yoodlizeCommands = {
         .click('.sc-uJMKN.bHUcDQ')
         .waitForElementNotPresent('//div[contains(@class, "b-coolGrayLightest")]/div[contains(text(), "PENDING")]/../..//div[contains(@class, "pointer")]')
         return this
-    }
+    },
     
+    imageInput: function (image){
+        this
+            .waitForElementVisible('button.sc-uJMKN.bhaOto.sc-ifAKCX.kvYMhQ', 5000)
+        
+        this.setValue("input[type=file]",
+            require('path').resolve(`../yoodlizeProj/images/${image}`))
+            .pause(2000)
+            this.expect.element('button.sc-uJMKN.bhaOto.sc-ifAKCX.kvYMhQ').text.to.equal('Save & Next: Review').before(5000)
+            this.click('button.sc-uJMKN.bhaOto.sc-ifAKCX.kvYMhQ')
+
+            return this
+    }
+
 }
 
 module.exports = {
@@ -209,9 +222,41 @@ module.exports = {
             locateStrategy: 'xpath'
                     },
         navWorks: {
-            selector:'//*[text()="How it works"]',
+            selector: '//*[text()="How it works"]',
             locateStrategy: 'xpath'
         },
+        loginBtn: {
+            selector: '//*[text()="Log in"]',
+            locateStrategy: 'xpath'
+        },
+        itemList: {
+            selector: '//*[text()="List Your Stuff"]',
+            locateStrategy: 'xpath'
+        },
+        nextBtn: {
+            selector: '.bhaOto',
+            locateStrategy: 'css'
+        },
+        categoryReq: {
+            selector: '//select[@form="ListingForm"])[1]',
+            locateStrategy: 'xpath'
+        },
+        categoryOpt: {
+            selector: '//select[@form="ListingForm"])[2]',
+            locateStrategy: 'xpath'
+        },
+        itemTitle: {
+            selector: '.sc-hXRMBi',
+            locateStrategy: 'css'
+        },
+        itemDesc: {
+            selector: '.sc-bAeIUo',
+            locateStrategy: 'css'
+        },
+        itemInput: {
+            selector: '.sc-hXRMBi',
+            locateStrategy: 'css'
+        }
 
     },
 }
