@@ -14,6 +14,70 @@ var yoodlizeCommands = {
         this.api.useCss()
         return this
     },
+    navCat: function(testData){
+        testData.forEach(test => {
+            this
+            .click(test.selector)
+            .pause(500)
+            .useCss()
+            .waitForElementVisible('.sc-kaNhvL')
+            .verify.containsText('.sc-kaNhvL', test.category)
+            .waitForElementVisible('.navbar-brand')
+            .click('.navbar-brand')
+        })
+        this
+        return this
+    },
+    search: function(value){
+        this
+        .waitForElementVisible('input')
+        .setValue('input', value)
+        .click('.sc-uJMKN.fpBmEu')
+        .waitForElementVisible('.sc-jKVCRD')
+        .verify.containsText('.sc-jKVCRD', value)
+        .click('#card-title')
+        .waitForElementVisible('.sc-jqCOkK.hxTVNb')
+        .verify.containsText('.sc-jqCOkK.hxTVNb', value)
+        return this
+    },
+    request: function(date,days){
+        this
+        .waitForElementVisible('.sc-uJMKN.bhaOto')
+        .setValue('#date', date)
+        .setValue('[type=number]', days)
+        .click('.sc-uJMKN.bhaOto')
+        .waitForElementVisible('.sc-jqCOkK.efFbwr')
+        .verify.containsText('.sc-jqCOkK.efFbwr', 'Charles Bandberry')
+        .click('._2Py7x')
+        .waitForElementVisible('.sc-jqCOkK.dskild')
+        .verify.containsText('.sc-jqCOkK.dskild', 'Request Sent')
+        .logout()
+        return this
+    },
+    logout: function(){
+        this
+        .click('#basic-nav-dropdown')
+        .api.useXpath()
+        .waitForElementVisible('(//span[text()="Logout"])[2]')
+        .click('(//span[text()="Logout"])[2]')
+        .waitForElementVisible('//span[text()="Log in"]')
+        this.api.useCss
+        return this
+    },
+    deny: function(){
+        this
+        .logIn('testing.yoodlize@gmail.com')
+        .click('[href="/inbox"]')
+        .api.useXpath()
+        .waitForElementVisible('//div[contains(@class, "b-coolGrayLightest")]/div[contains(text(), "PENDING")]/../..//div[contains(@class, "pointer")]')
+        .click('//div[contains(@class, "b-coolGrayLightest")]/div[contains(text(), "PENDING")]/../..//div[contains(@class, "pointer")]')
+        this.api.useCss()
+        .waitForElementVisible('.sc-uJMKN.bHUcDQ')
+        .click('.sc-uJMKN.bHUcDQ')
+        .waitForElementNotPresent('//div[contains(@class, "b-coolGrayLightest")]/div[contains(text(), "PENDING")]/../..//div[contains(@class, "pointer")]')
+        return this
+    },
+    
     imageInput: function (image){
         this
             .waitForElementVisible('button.sc-uJMKN.bhaOto.sc-ifAKCX.kvYMhQ', 5000)
