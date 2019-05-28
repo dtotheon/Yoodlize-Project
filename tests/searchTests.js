@@ -10,10 +10,10 @@ module.exports = {
         browser.end()
     },
 
-    // 'Navigate Categories': browser => {
-    //     pageObjects
-    //     .navCat(navCat)
-    // },
+    'Navigate Categories': browser => {
+        pageObjects
+        .navCat(navCat)
+    },
 
     'Rent Item and Deny Request': browser => {
         rent.forEach(test => {
@@ -24,7 +24,7 @@ module.exports = {
         .deny()
         .logout()
     })
-}
+},
     'Search is available on all pages': browser => {
         pageObjects
             .waitForElementVisible('@navSearch')
